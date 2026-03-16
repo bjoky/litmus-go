@@ -1,0 +1,64 @@
+---
+apiVersion: litmuschaos.io/v1alpha1
+kind: ChaosExperiment
+metadata:
+  name: jvm-cpu-hog
+  labels:
+    name: jvm-cpu-hog
+    app.kubernetes.io/part-of: litmus
+spec:
+  definition:
+    scope: Namespaced
+    permissions:
+      - apiGroups:
+          - ""
+          - "batch"
+          - "litmuschaos.io"
+        resources:
+          - "jobs"
+          - "pods"
+          - "pods/log"
+          - "pods/exec"
+          - "events"
+          - "chaosengines"
+          - "chaosexperiments"
+          - "chaosresults"
+        verbs:
+          - "create"
+          - "list"
+          - "get"
+          - "patch"
+          - "update"
+          - "delete"
+          - "deletecollection"
+    image: "litmuschaos/go-runner:bk"
+    imagePullPolicy: Always
+    args:
+    - -c
+    - ./experiments -name jvm-cpu-hog
+    command:
+    - /bin/bash
+    env:
+    - name: TOTAL_CHAOS_DURATION
+      value: '60'
+    - name: CHAOS_INTERVAL
+      value: '10'
+    - name: JAVA_THREADS
+      value: '1'
+    - name: RAMP_TIME
+      value: ''
+    - name: LIB_IMAGE
+      value: 'litmuschaos/go-runner:bk'
+    - name: PODS_AFFECTED_PERC
+      value: ''
+    - name: TARGET_PODS
+      value: ''
+    - name: CONTAINER_RUNTIME
+      value: 'containerd'
+    - name: SOCKET_PATH
+      value: '/run/containerd/containerd.sock'
+    - name: SEQUENCE
+      value: 'parallel'
+    labels:
+      name: jvm-cpu-hog
+      app.kubernetes.io/part-of: litmus

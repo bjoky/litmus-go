@@ -21,7 +21,16 @@ help:
 	@echo "\tmake push          -- pushes the litmus-go multi-arch image"
 	@echo "\tmake build-amd64   -- builds the litmus-go binary & docker amd64 image"
 	@echo "\tmake push-amd64    -- pushes the litmus-go amd64 image"
+	@echo "\tmake compile       -- compiles Go code without building Docker image"
 	@echo ""
+
+.PHONY: compile
+compile:
+	@echo "------------------"
+	@echo "--> Compiling Go code"
+	@echo "------------------"
+	@go build -v ./bin/experiment/
+	@go build -v ./bin/helper/
 
 .PHONY: all
 all: deps gotasks build push trivy-check

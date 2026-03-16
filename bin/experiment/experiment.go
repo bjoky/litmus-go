@@ -30,6 +30,7 @@ import (
 	containerKill "github.com/litmuschaos/litmus-go/experiments/generic/container-kill/experiment"
 	diskFill "github.com/litmuschaos/litmus-go/experiments/generic/disk-fill/experiment"
 	dockerServiceKill "github.com/litmuschaos/litmus-go/experiments/generic/docker-service-kill/experiment"
+	jvmCPUHog "github.com/litmuschaos/litmus-go/experiments/generic/jvm-cpu-hog/experiment"
 	kubeletServiceKill "github.com/litmuschaos/litmus-go/experiments/generic/kubelet-service-kill/experiment"
 	nodeCPUHog "github.com/litmuschaos/litmus-go/experiments/generic/node-cpu-hog/experiment"
 	nodeDrain "github.com/litmuschaos/litmus-go/experiments/generic/node-drain/experiment"
@@ -126,6 +127,8 @@ func main() {
 		kubeletServiceKill.KubeletServiceKill(ctx, clients)
 	case "docker-service-kill":
 		dockerServiceKill.DockerServiceKill(ctx, clients)
+	case "jvm-cpu-hog":
+		jvmCPUHog.JVMCPUHog(ctx, clients)
 	case "node-cpu-hog":
 		nodeCPUHog.NodeCPUHog(ctx, clients)
 	case "node-drain":

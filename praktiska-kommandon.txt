@@ -1,0 +1,8 @@
+make build-amd64 DOCKER_TAG=bk
+
+kubectl debug node/desktop-worker2 -it --image=busybox
+chroot /host 
+crictl images
+
+kubectl -n litmus apply -f experiments/generic/jvm-cpu-hog/experiment.yaml
+kubectl -n litmus apply -f experiments/generic/jvm-cpu-hog/engine.yaml
